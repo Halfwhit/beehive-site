@@ -1,0 +1,35 @@
+{% extends "market/base.html" %}
+{% load humanize %}
+{% block content %}
+    <h1 class="mb-0">Transaction ID: {{ object.id }}</h1>
+    <div class="container-fluid">
+        <p class="float-left">Authorised: {{ object.authorised }}</p>
+        {% if perms.market.change_transaction %}
+        <a class="btn btn-outline-secondary btn-sm mt-1 mb-1 float-right" href="{% url 'transaction-update' object.id%}">Update</a>
+        {% endif %}
+    </div>
+    <table class="table table-hover mt-2">
+        <thead>
+            <tr>
+                <th scope="col">Sender</th>
+                <th scope="col">Value</th>
+                <th scope="col">Recipient</th>
+                <th scope="col">Details</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{ object.sender }}</a></th>
+                <th>{{ object.value|intcomma }}</th>
+                <th>{{ object.recipient }}</th>
+                <th>{{ object.details }}</th>
+                <th>{{ object.date }}</th>
+            </tr>
+    </table>
+    <div class="container">
+    <p>Direction: {{ object.direction }}</p><br></br>
+        <h3>Details:</h3>
+        <p>{{ object.details }}</p>
+    </div>
+{% endblock content %}
